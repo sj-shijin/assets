@@ -14,7 +14,7 @@ math: mathjax
 # Shortest Vector from Lattice Sieving: A Few Dimensions for Free
 
 L&eacute;o Ducas
-EUROCRYPT 2018
+EUROCRYPT(CCF-A) 2018
 
 ## 研究问题及研究意义
 
@@ -26,11 +26,9 @@ EUROCRYPT 2018
 
 - 筛法会输出比格中最短向量更多的信息（一系列短向量）
 
-- 在n-d维子格上进行筛法
+- 在n-d维子格上进行筛法（显著提升效率）
 
-- 提升n-d维子格的结果到n维完整格
-
-## 提升维数（使用Babai算法）
+- 提升n-d维子格的结果到n维完整格（Babai算法）
 
 ## 实验结果
 
@@ -44,7 +42,7 @@ EUROCRYPT 2018
 
 <div class=rimg>
 
-![#c h:500](./_EUROCRYPT_2018_Lattice%20Sieving.assets/image-20240922170435436.png)
+![#c h:500](./_EUROCRYPT_2018_SubSieve.assets/image-20240922170435436.png)
 
 </div>
 
@@ -63,6 +61,7 @@ EUROCRYPT 2018
 由于对SVP求解了解不多，仅从算法角度考虑改进：
 
 - 选择不同的投影方式，并行求解多个子格，并综合结果
+
 - 如果投影后维数依然较高，进行迭代投影
 
 ## 总结
