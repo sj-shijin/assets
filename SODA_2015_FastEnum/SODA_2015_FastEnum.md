@@ -11,7 +11,7 @@ math: mathjax
 <!-- _paginate: "" -->
 <!-- _footer: "" -->
 
-# Faster exponential time algorithms for the shortest vector problem
+# Fast Lattice Point Enumeration with Minimal Overhead
 
 Daniele Micciancio, Michael Walter
 SODA(CCF-A) 2015
@@ -70,7 +70,7 @@ SODA(CCF-A) 2015
 
 - 剪枝
 
-<!-- 本文与m4ri的改进思路有一些相似之处，增加步长虽然没有降低理论时间复杂度，但提升了实际运行效率。另一方面，对于在投影子格上进行的筛法，其想法来自于枚举算法，可以看作是筛法和枚举的结合。对于后续的改进，除了枚举算法一贯以来的剪枝优化以外，可以考虑使用BKZ基替代算法中的HKZ基。 -->
+<!-- 本文与m4ri的改进思路有一些相似之处，增加步长虽然没有降低理论时间复杂度，但提升了实际运行效率。另一方面，对于在投影子格上进行的筛法，其想法来自于枚举算法，可以看作是筛法和枚举的结合。对于后续的改进，除了枚举算法一贯以来的剪枝优化以外，可以考虑使用BKZ算法。 -->
 
 ## 总结
 
