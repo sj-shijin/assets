@@ -7,13 +7,13 @@ footer: \ *石晋* *2024.03.07*
 class: hugetext
 ---
 
+<!-- _class: cover_a -->
+<!-- _paginate: "" -->
+<!-- _footer: "" -->
+
 # Gamma: Leveraging Gustavson’s Algorithm to Accelerate Sparse Matrix Multiplication
 
 ASPLOS 2021
-
-<!-- _class: cover_a-->
-<!-- _paginate: "" -->
-<!-- _footer: "" -->
 
 ## 研究意义与动机
 

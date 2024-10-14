@@ -7,7 +7,7 @@ footer: \ *石晋* *2024.10.7*
 math: mathjax
 ---
 
-<!-- _class: cover_a-->
+<!-- _class: cover_a -->
 <!-- _paginate: "" -->
 <!-- _footer: "" -->
 

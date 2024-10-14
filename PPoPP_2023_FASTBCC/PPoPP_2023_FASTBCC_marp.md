@@ -7,16 +7,13 @@ footer: \ *石晋* *2024.01.29*
 math: mathjax
 ---
 
-<!-- _class: cover_a-->
+<!-- _class: cover_a -->
 <!-- _paginate: "" -->
 <!-- _footer: "" -->
 
 # Provably Fast and Space-Efficient Parallel Biconnectivity
 
 PPoPP 2023
-
-<!-- _class: cover_a-->
-<!-- _paginate: "" -->
 
 ## 点双连通性
 

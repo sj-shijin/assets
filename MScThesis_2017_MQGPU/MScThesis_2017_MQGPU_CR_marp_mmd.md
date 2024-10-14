@@ -9,7 +9,7 @@ math: mathjax
 
 # Code Review
 
-<!-- _class: cover_a-->
+<!-- _class: cover_a -->
 <!-- _paginate: "" -->
 <!-- _footer: "" -->
 
