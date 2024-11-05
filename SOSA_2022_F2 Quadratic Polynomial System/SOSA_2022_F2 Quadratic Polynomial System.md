@@ -58,9 +58,15 @@ SOSA@SODA(CCF-A) 2022
 
 - 通过暴力穷举a,b,c的取值，得到关于d,e的方程组，若有解，代入原二次系统中进行验证。
 
+## 基础算法
+
+![#c h:450](./_SOSA_2022_F2%20Quadratic%20Polynomial%20System.assets/image-20241105121701586.png)
+
 ## 实现优化
 
-- 格雷码快速枚举多项式
+- 格雷码快速枚举
+
+![#c h:280](./_SOSA_2022_F2%20Quadratic%20Polynomial%20System.assets/image-20241105122139838.png)
 
 - 选择合适的参数，从线性方程组的规模考虑
 
