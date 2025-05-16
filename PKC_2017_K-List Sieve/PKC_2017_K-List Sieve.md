@@ -3,7 +3,7 @@ marp: true
 theme: am_yoimiya
 paginate: true
 headingDivider: [2,3]
-footer: \ *石晋* *2024.11.11*
+footer: \ *石晋* *2025.5.10*
 math: mathjax
 ---
 
@@ -14,15 +14,22 @@ math: mathjax
 # Improved Algorithms for the Approximate k-List Problem in Euclidean Norm
 
 Gottfried Herold, Elena Kirshanova
-PKC(CCF-B) 2017
+PKC 2017
 
-## 研究问题及研究意义
+## 背景介绍
 
-研究问题：欧几里得范数下的近似k-list问题（即k筛法）
+|  算法  |  类型   |     时间     |     空间     |
+| :----: | :-----: | :----------: | :----------: |
+| Gauss  | 2-Sieve | $2^{0.415n}$ | $2^{0.208n}$ |
+| BGJ15  | 2-Sieve | $2^{0.311n}$ | $2^{0.208n}$ |
+| BDGL16 | 2-Sieve | $2^{0.292n}$ | $2^{0.208n}$ |
+| BLS16  | 3-Sieve | $2^{0.481n}$ | $2^{0.189n}$ |
+|  HK17  | 3-Sieve | $2^{0.372n}$ | $2^{0.189n}$ |
 
-研究意义：可以从理论层面降低筛法时间与空间复杂度，提高实际求解效率
+<br>
 
-k-list问题：给定k个列表$L_i \subseteq X(i = 1,...,k)$，找到满足某些条件的k元组$(x_1, ..., x_k)\in L_1 \times ...\times L_k$
+k-List问题：给定k个列表$L_i \subseteq X(i = 1,...,k)$，找到满足条件的k元组$(x_1, ..., x_k)\in L_1 \times ...\times L_k$
+
 筛法：$||x_1 \pm ... \pm x_k||<min\{||x_1||,...,||x_k||\}$
 
 ## 核心想法
