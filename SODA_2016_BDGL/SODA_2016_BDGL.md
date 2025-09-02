@@ -23,11 +23,6 @@ Anja Becker, L&eacute;o Ducas, Nicolas Gama, Thijs Laarhoven
 - 近似NNS：距离给定向量$\boldsymbol{v}$最近的向量距离$r_1$(角度$\theta_1$)，其余向量大于距离$r_2$(角度$\theta_2$)
 
 - 高维球面：$\mathcal{S}^{n-1}:=\{\boldsymbol{x}\in \mathbb{R}^n, ||\boldsymbol{x}||=1\}$
-- 高维圆锥：$\mathcal{H}_{\boldsymbol{v},\alpha}:=\{\boldsymbol{x}\in \mathbb{R}^n, \langle\boldsymbol{v},\boldsymbol{x}\rangle \ge \alpha\}$
-- 高维球冠：$\mathcal{C}_{\boldsymbol{v},\alpha}:=\mathcal{S}^{n-1}\cap \mathcal{H}_{\boldsymbol{v},\alpha}$
-  - 测度占比$\mathcal{C_n}(\alpha)=\frac{\mu(\mathcal{C}_{\boldsymbol{v},\alpha})}{\mu(\mathcal{S}^{n-1})}$
-- 高维球面楔：$\mathcal{W}_{\boldsymbol{v},\alpha,\boldsymbol{w},\beta}:=\mathcal{S}^{n-1}\cap \mathcal{H}_{\boldsymbol{v},\alpha}\cap \mathcal{H}_{\boldsymbol{w},\beta}$
-  - 测度占比$\mathcal{W_n}(\alpha,\beta,\theta)=\frac{\mu(\mathcal{W}_{\boldsymbol{v},\alpha,\boldsymbol{w},\beta})}{\mu(\mathcal{S}^{n-1})}$，其中$\langle\boldsymbol{v},\boldsymbol{w}\rangle=\theta$
 
 ## 局部敏感哈希(LSH)
 
@@ -81,7 +76,7 @@ Anja Becker, L&eacute;o Ducas, Nicolas Gama, Thijs Laarhoven
   p(\theta):=\mathop{\text{Pr}}\limits_{f \sim \mathcal{F}}[\boldsymbol{v},\boldsymbol{w}\in L_f|\boldsymbol{v},\boldsymbol{w}\in \mathcal{S}^{n-1},\langle \boldsymbol{v},\boldsymbol{w} \rangle = \cos \theta]
   $$
   - $p(0)$：随机向量通过过滤函数$f$的概率$\text{Pr}[\boldsymbol{v}\in L_f|\boldsymbol{v}\in \mathcal{S}^{n-1}]$
-  - $t\cdot p(0)^k$：随机向量能通过组合过滤的数量
+  - $t\cdot p(0)^k$：随机向量能通过组合过滤的数量（向量能进到几个组）
 
 ---
 
@@ -112,26 +107,27 @@ Anja Becker, L&eacute;o Ducas, Nicolas Gama, Thijs Laarhoven
 
 - Spherical LSH：单个hash函数通过采样$U=2^{\Theta(\sqrt{n})}$个单位向量$\boldsymbol{s_1},\boldsymbol{s_2},\cdots,\boldsymbol{s_U}$，取$\alpha=n^{-\frac{1}{4}}$，构造
   $$
-  \begin{align*}
-  H_{\boldsymbol{s_i}}:&=\mathcal{C}_{\boldsymbol{v},\alpha}\backslash \bigcup\limits_{j=1}^{i-1} H_{s_j} &
-  p(\theta)&=\text{exp}\left[-\frac{\sqrt{n}}{2}\tan^2\left(\frac{\theta}{2}\right)(1+o(1))\right] \\
-  &&\rho &= \frac{\log p(\theta_1)}{\log p(\theta_2)}=\frac{\tan^2(\theta_1/2)}{\tan^2(\theta_2/2)}(1+o(1))
-  \end{align*}
+  H_{\boldsymbol{s_i}}:=\mathcal{C}_{\boldsymbol{v},\alpha}\backslash \bigcup\limits_{j=1}^{i-1} H_{s_j} \qquad
+  p(\theta)=\text{exp}\left[-\frac{\sqrt{n}}{2}\tan^2\left(\frac{\theta}{2}\right)(1+o(1))\right]
+  $$
+
+  $$
+  \rho_{LSH} = \frac{\log p(\theta_1)}{\log p(\theta_2)}=\frac{\tan^2(\theta_1/2)}{\tan^2(\theta_2/2)}(1+o(1))
   $$
 - Spherical LSF：单个过滤函数通过一个随机单位向量$\boldsymbol{s}$，和一个角度$\alpha$，构造
   $$
-  \begin{align*}
-  F_{\boldsymbol{s}}:&=\mathcal{C}_{\boldsymbol{v},\alpha} &
-  p(\theta)&=\text{exp}\left[\frac{n}{2}\ln\left(1-\frac{2\alpha^2}{1+\cos \theta}\right)(1+o(1))\right] \\
-  &&\rho &= \frac{\log(1-\alpha^2)-\log\left(1-\frac{2\alpha^2}{1+\cos \theta_1}\right)}{\log(1-\alpha^2)-\log\left(1-\frac{2\alpha^2}{1+\cos \theta_2}\right)}(1+o(1))
-  \end{align*}
+  F_{\boldsymbol{s}}:=\mathcal{C}_{\boldsymbol{v},\alpha} \qquad
+  p(\theta)=\text{exp}\left[\frac{n}{2}\ln\left(1-\frac{2\alpha^2}{1+\cos \theta}\right)(1+o(1))\right]
+  $$
+  $$
+  \rho_{LSF} = \frac{\log(1-\alpha^2)-\log\left(1-\frac{2\alpha^2}{1+\cos \theta_1}\right)}{\log(1-\alpha^2)-\log\left(1-\frac{2\alpha^2}{1+\cos \theta_2}\right)}(1+o(1))
   $$
 
 ## $\alpha$的取值
 
 $$
 
-\rho \mathop{\sim}\limits^{\alpha = 0} \frac{\log p(\theta_1)}{\log p(\theta_2)}=\frac{\tan^2(\theta_1/2)}{\tan^2(\theta_2/2)}
+\rho_{LSF} \mathop{\sim}\limits^{\alpha = 0} \frac{\log p(\theta_1)}{\log p(\theta_2)}=\frac{\tan^2(\theta_1/2)}{\tan^2(\theta_2/2)}=\rho_{LSH}
 
 $$
 
@@ -151,8 +147,12 @@ C=Q\cdot(C_1 \times C_2 \times \cdots \times C_m)
 $$
 
 - $Q$代表$\mathbb{R}^n$上的均匀随机旋转，$n=m\cdot b$，$C_i\subset\sqrt{\frac{1}{m}}\mathcal{S}^{n-1}$，$C_i=\{\boldsymbol{c_{i,1}},\boldsymbol{c_{i,2},\cdots,\boldsymbol{c_{i,B}}}\}$
+
+- $m = O(\log n)$ 时理论最优
+
 - 可以使用$B\cdot m$个长度为$b$的随机向量表示$M=B^m$个长度为$n$的随机向量
-- 基于之前的分析：$B=t^{\frac{1}{m}}$
+
+- 等价组合过滤器数量：$t=B^m$
 
 ---
 
@@ -170,16 +170,62 @@ $$
 \mathcal{T}_{LD}(t,\alpha) = O(nB+mB\log B+mt\mathcal{C_n}(\alpha))
 $$
 
+## 符号介绍
+
+- 高维球面：$\mathcal{S}^{n-1}:=\{\boldsymbol{x}\in \mathbb{R}^n, ||\boldsymbol{x}||=1\}$
+
+- 高维圆锥：$\mathcal{H}_{\boldsymbol{v},\alpha}:=\{\boldsymbol{x}\in \mathbb{R}^n, \langle\boldsymbol{v},\boldsymbol{x}\rangle \ge \alpha\}$
+
+- 高维球冠：$\mathcal{C}_{\boldsymbol{v},\alpha}:=\mathcal{S}^{n-1}\cap \mathcal{H}_{\boldsymbol{v},\alpha}$
+  $$
+  \mathcal{C_n}(\alpha)=\frac{\mu(\mathcal{C}_{\boldsymbol{v},\alpha})}{\mu(\mathcal{S}^{n-1})}=\mathrm{poly}(n)\cdot \left(1-\alpha^2\right)^{\frac{n}{2}}
+  $$
+
+- 高维球面楔：$\mathcal{W}_{\boldsymbol{v},\alpha,\boldsymbol{w},\beta}:=\mathcal{S}^{n-1}\cap \mathcal{H}_{\boldsymbol{v},\alpha}\cap \mathcal{H}_{\boldsymbol{w},\beta}$，令 $\cos \theta = \langle\boldsymbol{v},\boldsymbol{w}\rangle$
+  $$
+  \mathcal{W_n}(\alpha,\beta,\theta)=\frac{\mu(\mathcal{W}_{\boldsymbol{v},\alpha,\boldsymbol{w},\beta})}{\mu(\mathcal{S}^{n-1})}=\mathrm{poly}(n)\cdot \left(1-\frac{\alpha^2+\beta^2-2\alpha\beta\cos\theta}{\sin^2\theta}\right)^{\frac{n}{2}}
+  $$
+
+- [GeoGebra](https://www.geogebra.org/calculator/qhheye4h)
+
 ## 应用到筛法中
 
 - 目标：找到所有角度小于$\pi/3$的向量
 
-- 询问$\alpha$：$\alpha$越大，查询代价越小
-- 插入(预处理)$\beta$：$\beta$越大，需要构建更多的过滤器以保证查询成功率
+- 询问$\alpha$：$\alpha$越大，角度越小，查询代价越小
+- 插入(预处理)$\beta$：$\beta$越大，角度越小，需要构建更多的过滤器以保证查询成功率
 
-- 期望过滤器数量：$t=1 / \mathcal{W_n}(\alpha,\beta,\pi/3)$
-- 询问期望能通过过滤器的数量：$t\mathcal{C_n}(\alpha)$
-- 每个过滤器中的期望向量数量：$N\mathcal{C_n}(\beta)$
+- 期望过滤器数量：$t=\tilde{\mathcal{O}}(1 / \mathcal{W_n}(\alpha,\beta,\pi/3))$
+- 询问期望能通过过滤器的数量：$t\cdot\mathcal{C_n}(\alpha)$
+- 每个过滤器中的期望向量数量：$N\cdot\mathcal{C_n}(\beta)$
+
+---
+
+向量数量：$N = \left(\frac{4}{3}\right)^{\frac{n}{2}+o(n)}$
+
+查询时间复杂度：
+
+$$
+\mathcal{T}_1
+= \tilde{\mathcal{O}}\left(\frac{N\cdot\mathcal{C}_n(\alpha)\cdot(1+N\cdot\mathcal{C_n}(\beta))}{\mathcal{W_n}(\alpha,\beta,\pi/3)}\right)
+= \tilde{\mathcal{O}}\left( \left(\frac{4(1-\alpha^2)}{3-4(\alpha^2+\beta^2-\alpha\beta)}\right)^{\frac{n}{2}}\left[1+\left(\frac{4(1-\beta^2)}{3}\right)^{\frac{n}{2}}\right] \right)
+$$
+
+预处理时间复杂度：
+
+$$
+\mathcal{T}_2
+= \tilde{\mathcal{O}}\left(\frac{N\cdot\mathcal{C}_n(\beta)}{\mathcal{W_n}(\alpha,\beta,\pi/3)}\right)
+= \tilde{\mathcal{O}}\left(\left(\frac{4(1-\beta^2)}{3-4(\alpha^2+\beta^2-\alpha\beta)}\right)^{\frac{n}{2}}\right)
+$$
+
+空间复杂度：
+
+$$
+\mathcal{S}
+= \tilde{\mathcal{O}}\left(N + \frac{N\cdot\mathcal{C}_n(\beta)}{\mathcal{W_n}(\alpha,\beta,\pi/3)} \right)
+= \tilde{\mathcal{O}}\left(\left(\frac{4}{3}\right)^{\frac{n}{2}} + \left(\frac{4(1-\beta^2)}{3-4(\alpha^2+\beta^2-\alpha\beta)}\right)^{\frac{n}{2}} \right)
+$$
 
 ---
 
@@ -187,15 +233,25 @@ $$
 
 <div class=ldiv>
 
-查询时间复杂度：$\mathcal{T}_1 = N \cdot \frac{\mathcal{C}_n(\alpha)\cdot(1+N\cdot\mathcal{C_n}(\beta))}{\mathcal{W_n}(\alpha,\beta,\pi/3)}$
+- $(\alpha,\beta)=(\frac{1}{2},\frac{1}{2})$
 
-预处理时间复杂度：$\mathcal{T}_2 = \frac{N\cdot\mathcal{C}_n(\beta)}{\mathcal{W_n}(\alpha,\beta,\pi/3)}$
+  $$
+  \mathcal{T}=(3/2)^{n/2+o(n)}\approx 2^{0.292n+o(n)}
+  $$
 
-空间复杂度：$\mathcal{S} = N + \frac{N\cdot\mathcal{C}_n(\beta)}{\mathcal{W_n}(\alpha,\beta,\pi/3)}$
+  $$
+  \mathcal{S}=(3/2)^{n/2+o(n)}\approx 2^{0.292n+o(n)}
+  $$
 
-- $(\alpha,\beta)=(0.5,0.5)$：$\mathcal{T}=\mathcal{S}=2^{0.292n+o(1)}$
+- $(\alpha,\beta)=(\frac{1}{4},\frac{1}{2})$
 
-- $(\alpha,\beta)=(0.25,0.5)$：$\mathcal{T}=2^{0.368n+o(1)},\mathcal{S}=2^{0.208n+o(1)}$
+  $$
+  \mathcal{T}=(5/3)^{n/2+o(n)}\approx 2^{0.368n+o(n)}
+  $$
+
+  $$
+  \mathcal{S}=(4/3)^{n/2+o(n)}\approx 2^{0.208n+o(n)}
+  $$
 
 左下角的点只能使用NV筛
 
